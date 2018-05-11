@@ -1,0 +1,19 @@
+{
+  "name": "vpress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "docs:build": "vuepress build docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "surge": "^0.20.1",
+    "vuepress": "^0.8.4"
+  }
+}
