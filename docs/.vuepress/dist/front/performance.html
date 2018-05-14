@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>blog | performance</title>
+    <meta name="description" content="Just attempt">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.f17aba73.css" as="style"><link rel="preload" href="/assets/js/app.cd0227e6.js" as="script"><link rel="preload" href="/assets/js/1.a9c8531a.js" as="script"><link rel="prefetch" href="/assets/js/2.25904a7c.js"><link rel="prefetch" href="/assets/js/3.d03c6a8f.js"><link rel="prefetch" href="/assets/js/4.c8b301cc.js"><link rel="prefetch" href="/assets/js/5.b1fbe32b.js"><link rel="prefetch" href="/assets/js/6.99ab3b7f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f17aba73.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      blog
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/front/" class="nav-link router-link-active">Guides</a></div><div class="nav-item"><a href="/back/" class="nav-link">Info</a></div><!----></nav></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/front/" class="nav-link router-link-active">Guides</a></div><div class="nav-item"><a href="/back/" class="nav-link">Info</a></div><!----></nav><ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading"><span>日常随笔</span><span class="arrow right"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>前端小结</span><span class="arrow down"></span></p><ul class="sidebar-group-items"><li><a href="/front/" class="sidebar-link">vuepress</a></li><li><a href="/front/performance.html" class="active sidebar-link">performance</a></li></ul></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>后端小结</span><span class="arrow right"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h1 id="performance"><a href="#performance" aria-hidden="true" class="header-anchor">#</a> performance</h1><p>在网上闲逛查阅调试相关资料时，发现一篇利用谷歌控制台performance（原timeline）调试vue源码的文章，
+感觉思路很棒，于是借鉴前辈的经验，用这篇文章记录所获，以备将来回顾需要</p><ul><li>我先去写一个入门级别的vue项目，因为仅仅用来阅读源码，不需要太复杂</li></ul><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Welcome to Vue&lt;/title&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js&quot;&gt;&lt;/script&gt;
+  &lt;style&gt;
+    #app {
+      text-align: center;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;img src=&quot;https://vuejs.org/images/logo.png&quot; alt=&quot;Vue logo&quot;&gt;
+    &lt;div&gt;
+      &lt;h1&gt;
+        {{ title }}
+      &lt;/h1&gt;
+      &lt;h3&gt;
+        {{ content }}
+      &lt;/h3&gt;
+      &lt;h6&gt;
+        time: {{ time }}
+      &lt;/h6&gt;
+    &lt;/div&gt;
+    &lt;button @click=&quot;handleClick(0)&quot;&gt;点击我&lt;/button&gt;
+    &lt;button @click=&quot;handleClick(1)&quot;&gt;还原&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    var app = new Vue({
+      el: '#app',
+      data: {
+        title: 'Welcome to performance!',
+        content: '尝试利用performance阅读vue',
+        time: '2018/5/13',
+      },
+      methods: {
+        handleClick: function (type) {
+          const contents = type === 0 ? '呀～被点击了，好害羞' : 'Welcome to performance!'
+          this.content = contents
+        }
+      }
+    })
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><ul><li><p>打开谷歌隐私窗口（防止收谷歌插件的影响），打开页面
+<img src="http://p8phq50xq.bkt.clouddn.com/4.jpg" alt="4"></p></li><li><p>打开谷歌控制台，点击Performance，再点击左上角实心黑色圆圈。刷新界面，点击弹框中间的stop,
+成功后如下图所示：
+<img src="http://p8phq50xq.bkt.clouddn.com/6.jpg" alt="6"></p></li><li><p>我们进行拖拽可以看到在加载vue过程中执行的函数
+<img src="http://p8phq50xq.bkt.clouddn.com/7.jpg" alt="7"></p></li><li><p>我们随意点击，比如点击vue可以看到vue的构造函数具体位置，如下图所示
+<img src="http://p8phq50xq.bkt.clouddn.com/8.jpg" alt="8"></p></li><li><p>点击进入，我们可以看到vue构造函数
+<img src="http://p8phq50xq.bkt.clouddn.com/9.jpg" alt="8"></p></li></ul><p>从performance中我们还可以看到，vue的执行期间还进行了Vue._init执行过程，Vue._init下又进行了mergeOption、initProxy、initRender、initState、Vue.$mount等具体操作，我们都可以从summary看板中找到具体的函数。从而对于Vue的框架有了大致的了解。</p></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/front/" class="prev router-link-active">
+          vuepress
+        </a></span><span class="next"><a href="/back/">
+          information
+        </a> →
+      </span></p></div></div></div></div>
+    <script src="/assets/js/1.a9c8531a.js" defer></script><script src="/assets/js/app.cd0227e6.js" defer></script>
+  </body>
+</html>

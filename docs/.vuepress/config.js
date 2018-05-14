@@ -20,6 +20,7 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/front/',
+                    '/front/performance.md'
                 ]
             },
             {
