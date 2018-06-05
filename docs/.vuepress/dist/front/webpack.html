@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>blog | webpack</title>
+    <meta name="description" content="Just attempt">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.f17aba73.css" as="style"><link rel="preload" href="/assets/js/app.104874b0.js" as="script"><link rel="preload" href="/assets/js/1.c8b38422.js" as="script"><link rel="prefetch" href="/assets/js/3.5d64fa16.js"><link rel="prefetch" href="/assets/js/2.d46f1491.js"><link rel="prefetch" href="/assets/js/4.11a972f8.js"><link rel="prefetch" href="/assets/js/5.98d60cf2.js"><link rel="prefetch" href="/assets/js/6.7f063ca1.js"><link rel="prefetch" href="/assets/js/7.68e9e607.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f17aba73.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      blog
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/front/" class="nav-link router-link-active">Guides</a></div><div class="nav-item"><a href="/back/" class="nav-link">Info</a></div><!----></nav></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/front/" class="nav-link router-link-active">Guides</a></div><div class="nav-item"><a href="/back/" class="nav-link">Info</a></div><!----></nav><ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading"><span>日常随笔</span><span class="arrow right"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>前端小结</span><span class="arrow down"></span></p><ul class="sidebar-group-items"><li><a href="/front/" class="sidebar-link">vuepress</a></li><li><a href="/front/performance.html" class="sidebar-link">performance</a></li><li><a href="/front/webpack.html" class="active sidebar-link">webpack</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/front/webpack.html#基本plugins介绍" class="sidebar-link">基本plugins介绍</a></li></ul></li></ul></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>后端小结</span><span class="arrow right"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h1 id="webpack"><a href="#webpack" aria-hidden="true" class="header-anchor">#</a> webpack</h1><ul><li>这两天逛了下webpack文档，结果把自己惊讶到了。我之前一直以为阅读过webpack文档，知道它是啥，觉得自己还是不错的。结果，好吧，我从来没有阅读过webpack文档，真的是哪来的迷之自信。</li></ul><blockquote><p>还有一件人生大事，2018.6.1，今天，儿童节这一天，光荣的毕业啦，从此不再是一个孩子，是一个社会人士啦。希望未来一直能够如这个月一样，保持初心，抛弃社会的浮躁心理。步入社会的这一年，真的经历过太多的事，幼稚，自以为事的做了很多傻事，也可能伤害到了一些人，把自己弄的越来越不像刚进入社会的大学生的那样有闯劲和对事事抱有新鲜感。感谢人生中出现的一些贵人，帮我度过了人生中这样的一段低谷期，在孤独迷茫的夜晚让我倾述不安，陪我通宵哭泣。也感谢这一个月的大学生涯，帮我找回原来的自己，有点傻，有点幼稚，但是不服输，对未来充满希望的自己！</p></blockquote><h2 id="基本plugins介绍"><a href="#基本plugins介绍" aria-hidden="true" class="header-anchor">#</a> 基本plugins介绍</h2><ul><li>html-webpack-plugin
+简单的说，它会自动帮你生成一个html文件，并引用相关的assets（css、js）</li></ul><ol><li>title 生成html文件标题</li><li>filename 生成html文件名</li><li>根据指定的模版文件生成特定的html文件。常见的模版文件为jade、ejs等在用之前需要安装对应的loader</li></ol><pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+<span class="token comment">// npm i jade-loader --save-dev</span>
+<span class="token operator">...</span>
+loaders<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+  <span class="token punctuation">{</span>
+    test<span class="token punctuation">:</span> <span class="token regex">/\.jade$/</span><span class="token punctuation">,</span>
+    loader<span class="token punctuation">:</span> <span class="token string">'jade'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    jade<span class="token punctuation">:</span> <span class="token string">'path/myfile.jade'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span>
+</code></pre><ol start="4"><li>inject script位于的位置。注入选项。有true、body、head、false等选项</li><li>minify 对html文件进行压缩</li><li>hash 给生成的js一个hash值</li></ol><pre class="language-javascript"><code>plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    hash<span class="token punctuation">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span>
+result： <span class="token operator">&lt;</span>script type<span class="token operator">=</span>text<span class="token operator">/</span>javascript src<span class="token operator">=</span>bundle<span class="token punctuation">.</span>js？<span class="token number">22</span>b9692e22e7be37b57e<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+</code></pre><ol start="7"><li>cache 默认值为true，只在内容变化的时候生成一个新文件</li><li>showErrors 是否显示webpack编译错误</li><li>chunks 针对多个入口，因为生成多个js文件，决定是否都使用这些js文件</li></ol><pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+entry<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  index<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'./src/index.js'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  index1<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'./src/index1.js'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  index2<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'./src/index2.js'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token operator">...</span>
+plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    chunks<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'index'</span><span class="token punctuation">,</span><span class="token string">'index2'</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span>
+result<span class="token punctuation">:</span> 
+<span class="token operator">&lt;</span>script type<span class="token operator">=</span>text<span class="token operator">/</span>javascript src<span class="token operator">=</span>index<span class="token punctuation">.</span>js<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>script type<span class="token operator">=</span>text<span class="token operator">/</span>javascript src<span class="token operator">=</span>index2<span class="token punctuation">.</span>js<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+</code></pre><ol start="10"><li>excludeChunks 排除掉某些js文件</li><li>chunksSortMode 决定script标签的引用次序
+'none', 'auto', 'dependency', '{function}'。</li></ol></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/front/performance.html" class="prev">
+          performance
+        </a></span><span class="next"><a href="/back/">
+          information
+        </a> →
+      </span></p></div></div></div></div>
+    <script src="/assets/js/1.c8b38422.js" defer></script><script src="/assets/js/app.104874b0.js" defer></script>
+  </body>
+</html>
