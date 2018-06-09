@@ -21,7 +21,8 @@ module.exports = {
                 children: [
                     '/front/',
                     '/front/performance.md',
-                    '/front/webpack.md'
+                    '/front/webpack.md',
+                    '/front/npm.md'
                 ]
             },
             {
