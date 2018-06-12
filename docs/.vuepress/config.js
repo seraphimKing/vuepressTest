@@ -22,7 +22,8 @@ module.exports = {
                     '/front/',
                     '/front/performance.md',
                     '/front/webpack.md',
-                    '/front/npm.md'
+                    '/front/npm.md',
+                    'front/heroku.md'
                 ]
             },
             {
