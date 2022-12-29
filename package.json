@@ -14,6 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "surge": "^0.20.1",
-    "vuepress": "^0.8.4"
+    "vuepress": "^1.9.7"
   }
 }
